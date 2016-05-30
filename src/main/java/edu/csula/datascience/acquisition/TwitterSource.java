@@ -29,10 +29,10 @@ public class TwitterSource implements Source<Status> {
         List<Status> list = Lists.newArrayList();
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-            .setOAuthConsumerKey(System.getenv("TWITTER_CONSUMER_KEY"))
-            .setOAuthConsumerSecret(System.getenv("TWITTER_CONSUMER_SECRET"))
-            .setOAuthAccessToken(System.getenv("TWITTER_ACCESS_TOKEN"))
-            .setOAuthAccessTokenSecret(System.getenv("TWITTER_ACCESS_SECRET"));
+            .setOAuthConsumerKey(System.getenv("1MNc0guRQjioK2LEFzSgH2yvV"))
+            .setOAuthConsumerSecret(System.getenv("zPPqY85aKKQDWIGV94pURwuUG5uCRCbj55zTxLDoaqhY9y4CuG"))
+            .setOAuthAccessToken(System.getenv("162118177-ZHkqkQ8OE5QOOVKw8F0btKXCohwVDNfJDPFiOZnL"))
+            .setOAuthAccessTokenSecret(System.getenv("hQGyKMIDLFZpw5UueZNhKoEjDcHEz1jKK2HpQ4ao5F34k"));
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
 

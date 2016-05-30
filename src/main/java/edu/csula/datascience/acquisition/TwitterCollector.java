@@ -14,19 +14,17 @@ import java.util.stream.Collectors;
  * An example of Collector implementation using Twitter4j with MongoDB Java driver
  */
 public class TwitterCollector implements Collector<Status, Status> {
-    MongoClient mongoClient;
+    
+	MongoClient mongo;
     MongoDatabase database;
     MongoCollection<Document> collection;
+    
     public TwitterCollector() {
-        // establish database connection to MongoDB
-        mongoClient = new MongoClient();
-
-        // select `bd-example` as testing database
-        database = mongoClient.getDatabase("bd-example");
-
-        // select collection by name `tweets`
-        collection = database.getCollection("tweets");
+        mongo = new MongoClient();
+        database = mongo.getDatabase("tweet_analysis");
+        collection = database.getCollection("tweets_list");
     }
+    
     @Override
     public Collection<Status> mungee(Collection<Status> src) {
         return src;
@@ -34,6 +32,9 @@ public class TwitterCollector implements Collector<Status, Status> {
 
     @Override
     public void save(Collection<Status> data) {
+    	
+    	
+    	
         List<Document> documents = data.stream()
             .map(item -> new Document()
                 .append("tweetId", item.getId())

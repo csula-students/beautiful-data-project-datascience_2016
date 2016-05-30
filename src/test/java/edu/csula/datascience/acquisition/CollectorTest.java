@@ -5,14 +5,14 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-/**
- * A test case to show how to use Collector and Source
- */
 public class CollectorTest {
     private Collector<SimpleModel, MockData> collector;
     private Source<MockData> source;
@@ -23,12 +23,43 @@ public class CollectorTest {
         source = new MockSource();
     }
 
+    public String readTweet(String filename) throws IOException{
+    	String content = "";
+    	BufferedReader br = new BufferedReader(new FileReader(filename));
+    	try {
+    	    StringBuilder sb = new StringBuilder();
+    	    String line = br.readLine();
+
+    	    while (line != null) {
+    	        sb.append(line);
+    	        sb.append(System.lineSeparator());
+    	        line = br.readLine();
+    	    }
+    	    content = sb.toString();
+    	} finally {
+    	    br.close();
+    	}
+    	return content;
+    }
+
+    
     @Test
     public void mungee() throws Exception {
-        List<SimpleModel> list = (List<SimpleModel>) collector.mungee(source.next());
+        
+    	String content1="", content2="";
+		try {
+			content1 = readTweet("C:\\Users\\vallabh\\git\\beautiful-data-project-datascience_2016\\src\\test\\java\\edu\\csula\\datascience\\acquisition\\tweet1.txt");
+			content2 = readTweet("C:\\Users\\vallabh\\git\\beautiful-data-project-datascience_2016\\src\\test\\java\\edu\\csula\\datascience\\acquisition\\tweet2.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
+    	List<SimpleModel> list = (List<SimpleModel>) collector.mungee(source.next());
         List<SimpleModel> expectedList = Lists.newArrayList(
-            new SimpleModel("2", "content2"),
-            new SimpleModel("3", "content3")
+            new SimpleModel("2", content1),
+            new SimpleModel("3", content2)
         );
 
         Assert.assertEquals(list.size(), 2);

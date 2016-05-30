@@ -53,6 +53,9 @@ public class MongoExampleApp {
         );
 
         // insert 1000 documents
+        
+        //Read tweets file
+        
         List<Document> docs = Lists.newArrayList();
         for (int i = 0; i < 100; i ++) {
             Document newDoc = new Document("name", i)
